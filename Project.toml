@@ -1,0 +1,13 @@
+name = "QuantumStatePlots"
+uuid = "42a22799-231f-43e2-8d9d-80a724399a88"
+authors = ["JingYu Ning <foldfelis@gmail.com> and contributors"]
+version = "0.1.0"
+
+[compat]
+julia = "1.6"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
