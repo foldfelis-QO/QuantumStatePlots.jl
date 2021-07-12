@@ -26,7 +26,7 @@ function plot_wigner(
     size=DEFAULT_SIZE,
     file_path=nothing
 )
-    !isnothing(size) && (plotly(size=size) isa Plots.PlotlyBackend) || plotly()
+    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
 
     lim = maximum(abs.(ws.𝐰_surface))
     p = Plots.heatmap(
@@ -49,7 +49,7 @@ function plot_wigner(
     size=DEFAULT_SIZE,
     file_path=nothing
 )
-    !isnothing(size) && (plotly(size=size) isa Plots.PlotlyBackend) || plotly()
+    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
 
     lim = maximum(abs.(ws.𝐰_surface))
     p = Plots.contour(
@@ -73,7 +73,7 @@ function plot_wigner(
     size=DEFAULT_SIZE,
     file_path=nothing
 )
-    !isnothing(size) && (plotly(size=size) isa Plots.PlotlyBackend) || plotly()
+    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
 
     lim = maximum(abs.(ws.𝐰_surface))
     p = Plots.surface(
@@ -84,6 +84,8 @@ function plot_wigner(
         clim=(-lim, lim),
         zlim=(-lim, lim),
         c=:coolwarm,
+        # fillalpha=0.99, # this cause Pluto crash, work with DisplayAs
+        camera=(40, 30),
     )
 
     isnothing(file_path) || savefig(p, file_path)
@@ -104,7 +106,7 @@ function plot_ρ(
         state_n = Base.size(ρᵣ)[1] - 1
     end
 
-    !isnothing(size) && (plotly(size=size) isa Plots.PlotlyBackend) || plotly()
+    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
 
     lim = maximum(ρᵣ)
     p = Plots.heatmap(
@@ -123,12 +125,11 @@ end
 
 function plot_all(
     ws::WignerSurface, state::AbstractState;
-    levels=20,
     state_n=0,
     size=DEFAULT_SIZE,
     file_path=nothing
 )
-    !isnothing(size) && (plotly(size=size) isa Plots.PlotlyBackend) || plotly()
+    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
 
     l = @layout [
 		a{0.55h}
@@ -136,7 +137,7 @@ function plot_all(
 	]
     p = plot(
         plot_wigner(ws, Surface, size=nothing),
-        plot_wigner(ws, Contour, levels=levels, size=nothing),
+        plot_wigner(ws, Heatmap, size=nothing),
         plot_ρ(state, state_n=state_n, size=nothing),
         layout=l
     )
