@@ -9,6 +9,7 @@ QuantumStateBase = "73ce9c4f-35d1-4161-b9e6-26915895bfed"
 
 [compat]
 QuantumStateBase = "0.2"
+Plots = "1"
 julia = "1.6"
 
 [extras]
