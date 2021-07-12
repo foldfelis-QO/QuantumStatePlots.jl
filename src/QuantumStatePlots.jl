@@ -214,6 +214,7 @@ julia> plot_all(wf(state), state)
 function plot_all(
     ws::WignerSurface, state::AbstractState;
     state_n=0,
+    levels=20,
     size=DEFAULT_SIZE,
     file_path=nothing
 )
@@ -225,7 +226,7 @@ function plot_all(
 	]
     p = plot(
         plot_wigner(ws, Surface, size=nothing),
-        plot_wigner(ws, Contour, size=nothing),
+        plot_wigner(ws, Contour, size=nothing, levels=levels),
         plot_ρ(state, state_n=state_n, size=nothing),
         layout=l
     )
