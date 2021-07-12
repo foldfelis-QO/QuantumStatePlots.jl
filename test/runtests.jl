@@ -2,5 +2,5 @@ using QuantumStatePlots
 using Test
 
 @testset "QuantumStatePlots.jl" begin
-    # Write your tests here.
+ENV["GKSwstype"]="nul"
 end
