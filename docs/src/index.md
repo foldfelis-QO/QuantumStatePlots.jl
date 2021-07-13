@@ -4,7 +4,7 @@ CurrentModule = QuantumStatePlots
 
 # QuantumStatePlots
 
-Documentation for [QuantumStatePlots](https://github.com/foldfelis/QuantumStatePlots.jl).
+Documentation for [QuantumStatePlots](https://github.com/foldfelis-QO/QuantumStatePlots.jl).
 
 ```@index
 ```

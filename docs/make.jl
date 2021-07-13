@@ -6,11 +6,11 @@ DocMeta.setdocmeta!(QuantumStatePlots, :DocTestSetup, :(using QuantumStatePlots)
 makedocs(;
     modules=[QuantumStatePlots],
     authors="JingYu Ning <foldfelis@gmail.com> and contributors",
-    repo="https://github.com/foldfelis/QuantumStatePlots.jl/blob/{commit}{path}#{line}",
+    repo="https://github.com/foldfelis-QO/QuantumStatePlots.jl/blob/{commit}{path}#{line}",
     sitename="QuantumStatePlots.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://foldfelis.github.io/QuantumStatePlots.jl",
+        canonical="https://foldfelis-qo.github.io/QuantumStatePlots.jl",
         assets=String[],
     ),
     pages=[
@@ -19,5 +19,5 @@ makedocs(;
 )
 
 deploydocs(;
-    repo="github.com/foldfelis/QuantumStatePlots.jl",
+    repo="github.com/foldfelis-QO/QuantumStatePlots.jl",
 )
