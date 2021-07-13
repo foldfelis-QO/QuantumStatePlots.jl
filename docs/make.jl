@@ -1,6 +1,16 @@
 using QuantumStatePlots
 using Documenter
 
+############
+# gen logo #
+############
+
+logo_path = mkpath(joinpath(@__DIR__, "src/assets"))
+
+##################
+# build document #
+##################
+
 DocMeta.setdocmeta!(QuantumStatePlots, :DocTestSetup, :(using QuantumStatePlots); recursive=true)
 
 makedocs(;
