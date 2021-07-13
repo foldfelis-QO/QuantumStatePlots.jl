@@ -21,13 +21,13 @@ $$
 W(x, p) = \sum_{m, n} \rho_{m, n} W_{m, n}(x, p)
 $$
 
-Here, $\rho$ is the density matrix of the quantum state, defined as:
+Here, the density matrix of the quantum state defined as:
 
 $$
 \rho = \sum_{m, n} p_{m, n} | m \rangle \langle n |
 $$
 
-And, $W_{m, n}(x, p)$ is the generalized Wigner function
+And the generalized Wigner function:
 
 $$
 W_{m, n} = \{ \begin{array}{rcl}
@@ -44,7 +44,10 @@ $$
 | \psi \rangle = \hat{D}(\alpha) \hat{S}(\xi) | 1 \rangle
 $$
 
-with, $\alpha = 5 \times exp(-i \frac{3\pi}{4})$ and $\xi = 0.6 \times exp(-i \pi)$
+with 
+
+$$\alpha = 5 \times exp(-i \frac{3\pi}{4})$$
+$$\xi = 0.6 \times exp(-i \pi)$$
 
 ```julia
 using QuantumStateBase
