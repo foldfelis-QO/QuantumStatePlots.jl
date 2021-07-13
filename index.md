@@ -47,6 +47,7 @@ $$
 with 
 
 $$\alpha = 5 \times exp(-i \frac{3\pi}{4})$$
+
 $$\xi = 0.6 \times exp(-i \pi)$$
 
 ```julia
