@@ -67,11 +67,11 @@ plot_all(wf(state), state) # summery plot
 
 * **Wigner function in `Heatmap` representation**
 
-![](assets/heatmap.png)
+![](dev/assets/heatmap.png)
 
 * **Summery plot**
 
-![](assets/all.png)
+![](dev/assets/all.png)
 
 ### Reference
 
