@@ -54,13 +54,7 @@ $$\xi = 0.6 \times exp(-i \pi)$$
 using QuantumStateBase
 using QuantumStatePlots
 
-state = displace!(
-    squeeze!(
-        SinglePhotonState(rep=StateMatrix),
-        ξ(0.6, 1π),
-    ),
-    α(5., 3π/2)
-)
+state = displace!(squeeze!(SinglePhotonState(), ξ(0.6, 1π)), α(5., 3π/2))
 wf = WignerFunction(-10:0.1:10, -10:0.1:10)
 
 plot_wigner(wf(state), Heatmap) # Wigner function in `Heatmap` representation
