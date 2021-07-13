@@ -38,14 +38,46 @@ W_{m, n} = \{ \begin{array}{rcl}
 
 ```
 
+### Example
+
+The quantum state:
+
+```math
+| \psi \rangle = \hat{D}(\alpha) \hat{S}(\xi) | 1 \rangle
+```
+
+with, ``\alpha = 5 \times exp(-i \frac{3\pi}{4})`` and ``\xi = 0.6 \times exp(-i \pi)``
+
+```julia
+using QuantumStateBase
+using QuantumStatePlots
+
+state = displace!(
+    squeeze!(
+        SinglePhotonState(rep=StateMatrix),
+        ξ(0.6, 1π),
+    ),
+    α(5., 3π/2)
+)
+wf = WignerFunction(-10:0.1:10, -10:0.1:10)
+
+plot_wigner(wf(state), Heatmap) # Wigner function in `Heatmap` representation
+plot_all(wf(state), state) # summery plot
+```
+
+#### Result
+
+* **Wigner function in `Heatmap` representation**
+
+![](assets/heatmap.png)
+
+* **Summery plot**
+
+![](assets/all.png)
+
 ### Reference
 
 * [Quantum mechanics as a statistical theory](https://doi.org/10.1017/S0305004100000487)
-
-The squeezed vacuum state shown as below
-
-![](assets/heatmap.png)
-![](assets/all.png)
 
 ## Index
 ```@index
