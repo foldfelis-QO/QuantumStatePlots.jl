@@ -25,7 +25,11 @@ W(x, p) = \sum_{m, n} \rho_{m, n} W_{m, n}(x, p)
 Here, ``\rho`` is the density matrix of the quantum state, defined as:
 
 ```math
-\rho = \sum_{m, n} p_{m, n} | m \rangle \langle n |
+\rho = \sum_{m, n, i} \, p_i \, | n \rangle \langle n | \hat{\rho}_i | m \rangle \langle m |
+
+\hat{\rho}_i = | \psi_i \rangle \langle \psi_i |
+
+\hat{\rho}_i \, \text{is a density operator of pure state.}
 ```
 
 And, ``W_{m, n}(x, p)`` is the generalized Wigner function
