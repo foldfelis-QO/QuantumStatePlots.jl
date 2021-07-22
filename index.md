@@ -24,7 +24,13 @@ $$
 Here, the density matrix of the quantum state defined as:
 
 $$
-\rho = \sum_{m, n} p_{m, n} | m \rangle \langle n |
+\rho = \sum_{m, n, i} \, p_i \, | n \rangle \langle n | \hat{\rho}_i | m \rangle \langle m |
+$$
+$$
+\hat{\rho}_i = | \psi_i \rangle \langle \psi_i |
+$$
+$$
+\hat{\rho}_i \, \text{is a density operator of pure state.}
 $$
 
 And the generalized Wigner function:
@@ -44,7 +50,7 @@ $$
 | \psi \rangle = \hat{D}(\alpha) \hat{S}(\xi) | 1 \rangle
 $$
 
-with 
+with
 
 $$\alpha = 5 \times exp(-i \frac{3\pi}{4})$$
 
