@@ -26,9 +26,11 @@ Here, the density matrix of the quantum state defined as:
 $$
 \rho = \sum_{m, n, i} \, p_i \, | n \rangle \langle n | \hat{\rho}_i | m \rangle \langle m |
 $$
+
 $$
 \hat{\rho}_i = | \psi_i \rangle \langle \psi_i |
 $$
+
 $$
 \hat{\rho}_i \, \text{is a density operator of pure state.}
 $$
