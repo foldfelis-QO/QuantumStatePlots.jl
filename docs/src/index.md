@@ -27,9 +27,11 @@ Here, ``\rho`` is the density matrix of the quantum state, defined as:
 ```math
 \rho = \sum_{m, n, i} \, p_i \, | n \rangle \langle n | \hat{\rho}_i | m \rangle \langle m |
 ```
+
 ```math
 \hat{\rho}_i = | \psi_i \rangle \langle \psi_i |
 ```
+
 ```math
 \hat{\rho}_i \, \text{is a density operator of pure state.}
 ```
