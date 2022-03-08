@@ -9,11 +9,13 @@ QuantumStateBase = "73ce9c4f-35d1-4161-b9e6-26915895bfed"
 
 [compat]
 Plots = "1"
-QuantumStateBase = "1"
+QuantumStateBase = "1.2"
+QuantumStateDistributions = "0.2"
 julia = "1.6"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+QuantumStateDistributions = "78ba9c6e-4c92-4abc-8d32-e9cb1304b8da"
 
 [targets]
-test = ["Test"]
+test = ["Test", "QuantumStateBase", "QuantumStateDistributions"]

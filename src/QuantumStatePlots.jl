@@ -3,237 +3,92 @@ module QuantumStatePlots
 using Plots
 using QuantumStateBase
 
-export
-    DEFAULT_SIZE,
-    Heatmap,
-    Contour,
-    Surface,
-    plot_wigner,
-    plot_ρ,
-    plot_all
+export plot_real, plot_imag
 
-DEFAULT_SIZE = (1100, 900)
+# ##########
+# # wigner #
+# ##########
 
-abstract type PlotMethod end
+function Plots.surface(w::WignerSurface; kwargv...)
+    lim = maximum(abs.(w.𝐰_surface))
 
-"""
-    Heatmap <: PlotMethod
+    default_kwargv = Dict([
+        :title => "Wigner Function",
+        :xlabel => "X",
+        :ylabel => "P",
+        :zlabel => "Quasiprobability",
+        :clim => (-lim, lim),
+        :color => :coolwarm,
+        :camera => (40, 30),
+    ])
 
-Heatmap representation for Wigner function of quantum state.
-"""
-struct Heatmap <: PlotMethod end
-
-"""
-    Contour <: PlotMethod
-
-Contour representation for Wigner function of quantum state.
-"""
-struct Contour <: PlotMethod end
-
-"""
-    Surface <: PlotMethod
-
-Surface representation for Wigner function of quantum state.
-"""
-struct Surface <: PlotMethod end
-
-"""
-    plot_wigner(ws::WignerSurface, Heatmap; size=$DEFAULT_SIZE, file_path=nothing)
-
-Plot Wigner function of given quantum state in `Heatmap` representation.
-
-# Examples
-```julia-repl
-julia> using QuantumStateBase
-julia> state = CoherentState(α(5., π/4));
-julia> wf = WignerFunction(-10:0.1:10, -10:0.1:10);
-julia> plot_wigner(wf(state), Surface)
-```
-"""
-function plot_wigner(
-    ws::WignerSurface, ::Type{Heatmap};
-    size=DEFAULT_SIZE,
-    file_path=nothing
-)
-    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
-
-    lim = maximum(abs.(ws.𝐰_surface))
-    p = Plots.heatmap(
-        ws.x_range, ws.p_range, ws.𝐰_surface',
-        title="Wigner Function",
-        xlabel="X",
-        ylabel="P",
-        clim=(-lim, lim),
-        c=:coolwarm,
-    )
-
-    isnothing(file_path) || savefig(p, file_path)
-
-    return p
+    return surface(w.x_range, w.p_range, w.𝐰_surface'; merge(default_kwargv, kwargv)...)
 end
 
-"""
-    plot_wigner(ws::WignerSurface, Contour; size=$DEFAULT_SIZE, file_path=nothing)
+function Plots.heatmap(w::WignerSurface; kwargv...)
+    lim = maximum(abs.(w.𝐰_surface))
 
-Plot Wigner function of given quantum state in `Contour` representation.
+    default_kwargv = Dict([
+        :title => "Wigner Function",
+        :xlabel => "X",
+        :ylabel => "P",
+        :clim => (-lim, lim),
+        :color => :coolwarm,
+        :aspect_ratio => :equal,
+    ])
 
-# Examples
-```julia-repl
-julia> using QuantumStateBase
-julia> state = CoherentState(α(5., π/4));
-julia> wf = WignerFunction(-10:0.1:10, -10:0.1:10);
-julia> plot_wigner(wf(state), Contour)
-```
-"""
-function plot_wigner(
-    ws::WignerSurface, ::Type{Contour};
-    levels=20,
-    size=DEFAULT_SIZE,
-    file_path=nothing
-)
-    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
-
-    lim = maximum(abs.(ws.𝐰_surface))
-    p = Plots.contour(
-        ws.x_range, ws.p_range, ws.𝐰_surface',
-        title="Wigner Function",
-        xlabel="X",
-        ylabel="P",
-        clim=(-lim, lim),
-        fill=true,
-        levels=levels,
-        c=:coolwarm,
-    )
-
-    isnothing(file_path) || savefig(p, file_path)
-
-    return p
+    return heatmap(w.x_range, w.p_range, w.𝐰_surface'; merge(default_kwargv, kwargv)...)
 end
 
-"""
-    plot_wigner(ws::WignerSurface, Surface; size=$DEFAULT_SIZE, file_path=nothing)
+function Plots.contour(w::WignerSurface; kwargv...)
+    lim = maximum(abs.(w.𝐰_surface))
 
-Plot Wigner function of given quantum state in `Surface` representation.
+    default_kwargv = Dict([
+        :title => "Wigner Function",
+        :xlabel => "X",
+        :ylabel => "P",
+        :clim => (-lim, lim),
+        :color => :coolwarm,
+        :aspect_ratio => :equal,
+        :fill => true,
+        :levels => 20,
+    ])
 
-# Examples
-```julia-repl
-julia> using QuantumStateBase
-julia> state = CoherentState(α(5., π/4));
-julia> wf = WignerFunction(-10:0.1:10, -10:0.1:10);
-julia> plot_wigner(wf(state), Surface)
-```
-"""
-function plot_wigner(
-    ws::WignerSurface, ::Type{Surface};
-    size=DEFAULT_SIZE,
-    file_path=nothing
-)
-    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
-
-    lim = maximum(abs.(ws.𝐰_surface))
-    p = Plots.surface(
-        ws.x_range, ws.p_range, ws.𝐰_surface',
-        title="Wigner Function",
-        xlabel="X",
-        ylabel="P",
-        clim=(-lim, lim),
-        zlim=(-lim, lim),
-        c=:coolwarm,
-        # fillalpha=0.99, # this cause Pluto crash, work with DisplayAs
-        camera=(40, 30),
-    )
-
-    isnothing(file_path) || savefig(p, file_path)
-
-    return p
+    return contour(w.x_range, w.p_range, w.𝐰_surface'; merge(default_kwargv, kwargv)...)
 end
 
-"""
-    plot_ρ(state::AbstractState; state_n::Integer=0, size=$DEFAULT_SIZE, file_path=nothing)
+# #####
+# # ρ #
+# #####
 
-Plot density matrux of given quantum state.
+function plot_real(ρ, truncate=0; kwargv...)
+    return plot_ρ(real(ρ), truncate; merge(Dict([:title => "Density Matrux (real part)"]), kwargv)...)
+end
 
-* `state_n=n`: truncate to `n`th photon number
+function plot_imag(ρ, truncate=0; kwargv...)
+    return plot_ρ(imag(ρ), truncate; merge(Dict([:title => "Density Matrux (imag part)"]), kwargv)...)
+end
 
-# Examples
-```julia-repl
-julia> using QuantumStateBase
-julia> state = CoherentState(α(5., π/4));
-julia> plot_ρ(state)
-```
-"""
-function plot_ρ(
-    state::AbstractState;
-    state_n::Integer=0,
-    size=DEFAULT_SIZE,
-    file_path=nothing
-)
-    ρᵣ = real(𝛒(state))
-    if state_n != 0
-        ρᵣ = ρᵣ[1:state_n+1, 1:state_n+1]
-    else
-        state_n = Base.size(ρᵣ)[1] - 1
+function plot_ρ(ρ::AbstractMatrix, truncate::Integer; kwargv...)
+    photon_number_range = Base.OneTo(size(ρ, 1))
+    if truncate > 0
+        photon_number_range = 1:truncate
+        ρ = ρ[photon_number_range, photon_number_range]
     end
+    photon_number_range = photon_number_range .- 1 # labels of m, n
 
-    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
+    lim = maximum(abs.(ρ))
 
-    lim = maximum(ρᵣ)
-    p = Plots.heatmap(
-        0:state_n, 0:state_n, ρᵣ,
-        title="Density Matrix (Real part)",
-        xlabel="m",
-        ylabel="n",
-        c=:coolwarm,
-        clim=(-lim, lim)
-    )
+    default_kwargv = Dict([
+        :title => "Density Matrux",
+        :xlabel => "m",
+        :ylabel => "n",
+        :clim => (-lim, lim),
+        :color => :coolwarm,
+        :aspect_ratio => :equal,
+    ])
 
-    isnothing(file_path) || savefig(p, file_path)
-
-    return p
-end
-
-"""
-    plot_all(
-        ws::WignerSurface, state::AbstractState;
-        state_n::Integer=0, size=$DEFAULT_SIZE, file_path=nothing
-    )
-
-Plot Wifner function and density matrux of given quantum state
-in both `Surface` and `Contour` representation.
-
-* `state_n=n`: truncate to `n`th photon number
-
-# Examples
-```julia-repl
-julia> using QuantumStateBase
-julia> state = CoherentState(α(5., π/4));
-julia> wf = WignerFunction(-10:0.1:10, -10:0.1:10);
-julia> plot_all(wf(state), state)
-```
-"""
-function plot_all(
-    ws::WignerSurface, state::AbstractState;
-    state_n=0,
-    levels=20,
-    size=DEFAULT_SIZE,
-    file_path=nothing
-)
-    !isnothing(size) && (gr(size=size) isa Plots.GRBackend) || gr()
-
-    l = @layout [
-		a{0.55h}
-		grid(1, 2)
-	]
-    p = plot(
-        plot_wigner(ws, Surface, size=nothing),
-        plot_wigner(ws, Contour, size=nothing, levels=levels),
-        plot_ρ(state, state_n=state_n, size=nothing),
-        layout=l
-    )
-
-    isnothing(file_path) || savefig(p, file_path)
-
-    return p
+    return heatmap(photon_number_range, photon_number_range, ρ; merge(default_kwargv, kwargv)...)
 end
 
 end
