@@ -1,59 +1,42 @@
 using QuantumStatePlots
+using Plots
 using QuantumStateBase
+using VisualRegressionTests
 using Test
 
 @testset "QuantumStatePlots.jl" begin
 
 ENV["GKSwstype"]="nul"
 
-@testset "plot wigner" begin
-    x_range = -5:1.0:5
-    p_range = -5:1.0:5
-    wf = WignerFunction(x_range, p_range)
+ρ = SqueezedState(0.8, π/8, Matrix, dim=100)
+w = wigner(ρ, LinRange(-3, 3, 101), LinRange(-3, 3, 101))
 
-    state = VacuumState()
-    ws = wf(state)
+# ##########
+# # wigner #
+# ##########
 
-    file_path = "wigner.png"
+@plottest begin
+    surface(w)
+end "assets/surface.png"
 
-    plot_wigner(ws, Heatmap, file_path=file_path)
-    @test isfile(file_path)
-    isfile(file_path) && rm(file_path)
+@plottest begin
+    heatmap(w)
+end "assets/heatmap.png"
 
-    plot_wigner(ws, Contour, file_path=file_path)
-    @test isfile(file_path)
-    isfile(file_path) && rm(file_path)
+@plottest begin
+    contour(w)
+end "assets/contour.png"
 
-    plot_wigner(ws, Surface, file_path=file_path)
-    @test isfile(file_path)
-    isfile(file_path) && rm(file_path)
-end
+# #####
+# # ρ #
+# #####
 
-@testset "plot ρ" begin
-    file_path = "rho.png"
+@plottest begin
+    plot_real(ρ, 35)
+end "assets/real.png"
 
-    plot_ρ(VacuumState(), file_path=file_path)
-    @test isfile(file_path)
-    isfile(file_path) && rm(file_path)
-
-    plot_ρ(VacuumState(), state_n=5, file_path=file_path)
-    @test isfile(file_path)
-    isfile(file_path) && rm(file_path)
-end
-
-@testset "plot all" begin
-    x_range = -5:1.0:5
-    p_range = -5:1.0:5
-    wf = WignerFunction(x_range, p_range)
-
-    state = VacuumState()
-    ws = wf(state)
-
-    file_path = "all.png"
-
-    plot_all(ws, state, file_path=file_path)
-    @test isfile(file_path)
-    isfile(file_path) && rm(file_path)
-end
+@plottest begin
+    plot_imag(ρ, 35)
+end "assets/imag.png"
 
 end

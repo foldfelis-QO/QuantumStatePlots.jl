@@ -47,34 +47,69 @@ W_{m, n} = \{ \begin{array}{rcl}
 
 ### Example
 
-The quantum state:
+The quantum state and its wigner function:
 
-```math
-| \psi \rangle = \hat{D}(\alpha) \hat{S}(\xi) | 1 \rangle
+```julia-repl
+julia> using QuantumStateBase
+
+julia> ρ = SqueezedState(0.8, π/8, Matrix, dim=100)
+
+julia> w = wigner(ρ, LinRange(-3, 3, 101), LinRange(-3, 3, 101));
 ```
 
-with, ``\alpha = 5 \times exp(-i \frac{3\pi}{4})`` and ``\xi = 0.6 \times exp(-i \pi)``
+#### Wigner function
 
-```julia
-using QuantumStateBase
-using QuantumStatePlots
+**Surface**
 
-state = displace!(squeeze!(SinglePhotonState(), ξ(0.6, 1π)), α(5., 3π/2))
-wf = WignerFunction(-10:0.1:10, -10:0.1:10)
+```julia-repl
+julia> using QuantumStatePlots, Plots
 
-plot_wigner(wf(state), Heatmap) # Wigner function in `Heatmap` representation
-plot_all(wf(state), state) # summery plot
+julia> surface(w)
 ```
 
-#### Result
+![](assets/surface.png)
 
-* **Wigner function in `Heatmap` representation**
+**Heatmap**
+
+```julia-repl
+julia> using QuantumStatePlots, Plots
+
+julia> heatmap(w)
+```
 
 ![](assets/heatmap.png)
 
-* **Summery plot**
+**Contour**
 
-![](assets/all.png)
+```julia-repl
+julia> using QuantumStatePlots, Plots
+
+julia> contour(w)
+```
+
+![](assets/contour.png)
+
+#### Density matrix
+
+**Real part**
+
+```julia-repl
+julia> using QuantumStatePlots, Plots
+
+julia> plot_real(ρ, 35)
+```
+
+![](assets/real.png)
+
+**Imag part**
+
+```julia-repl
+julia> using QuantumStatePlots, Plots
+
+julia> plot_imag(ρ, 35)
+```
+
+![](assets/imag.png)
 
 ### Reference
 

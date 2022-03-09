@@ -1,24 +1,5 @@
-using QuantumStateBase
 using QuantumStatePlots
 using Documenter
-
-############
-# gen logo #
-############
-
-ENV["GKSwstype"]="nul"
-logo_path = mkpath(joinpath(@__DIR__, "src/assets"))
-
-dim = 50
-state = displace!(squeeze!(SinglePhotonState(dim=dim), ξ(0.6, 1π)), α(5., 3π/2))
-@time wf = WignerFunction(-10:0.1:10, -10:0.1:10, dim=dim)
-
-plot_wigner(wf(state), Heatmap, size=(600, 550), file_path=joinpath(logo_path, "heatmap.png"))
-plot_all(wf(state), state, levels=8, size=(600, 550), file_path=joinpath(logo_path, "all.png"))
-
-##################
-# build document #
-##################
 
 DocMeta.setdocmeta!(QuantumStatePlots, :DocTestSetup, :(using QuantumStatePlots); recursive=true)
 
@@ -29,7 +10,7 @@ makedocs(;
     sitename="QuantumStatePlots.jl",
     format=Documenter.HTML(;
         prettyurls=get(ENV, "CI", "false") == "true",
-        canonical="https://foldfelis-qo.github.io/QuantumStatePlots.jl",
+        canonical="https://foldfelis-QO.github.io/QuantumStatePlots.jl",
         assets=String[],
     ),
     pages=[
@@ -39,4 +20,5 @@ makedocs(;
 
 deploydocs(;
     repo="github.com/foldfelis-QO/QuantumStatePlots.jl",
+    devbranch="master",
 )
