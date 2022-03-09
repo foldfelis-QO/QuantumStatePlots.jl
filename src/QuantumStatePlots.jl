@@ -76,10 +76,28 @@ end
 # # ρ #
 # #####
 
+"""
+    plot_real(ρ, [truncate::Integer]; kwargv...)
+
+Plot real part of a density matrix.
+
+## Arguments
+
+* `truncate`: Truncate photon number
+"""
 function plot_real(ρ, truncate=0; kwargv...)
     return plot_ρ(real(ρ), truncate; merge(Dict([:title => "Density Matrux (real part)"]), kwargv)...)
 end
 
+"""
+    plot_imag(ρ, [truncate::Integer]; kwargv...)
+
+Plot imag part of a density matrix.
+
+## Arguments
+
+* `truncate`: Truncate photon number
+"""
 function plot_imag(ρ, truncate=0; kwargv...)
     return plot_ρ(imag(ρ), truncate; merge(Dict([:title => "Density Matrux (imag part)"]), kwargv)...)
 end
