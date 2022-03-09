@@ -9,6 +9,11 @@ export plot_real, plot_imag
 # # wigner #
 # ##########
 
+"""
+    Plots.surface(w::WignerSurface; kwargv...)
+
+Plot Wigner function in surface.
+"""
 function Plots.surface(w::WignerSurface; kwargv...)
     lim = maximum(abs.(w.𝐰_surface))
 
@@ -25,6 +30,11 @@ function Plots.surface(w::WignerSurface; kwargv...)
     return surface(w.x_range, w.p_range, w.𝐰_surface'; merge(default_kwargv, kwargv)...)
 end
 
+"""
+    Plots.heatmap(w::WignerSurface; kwargv...)
+
+Plot Wigner function in heatmap.
+"""
 function Plots.heatmap(w::WignerSurface; kwargv...)
     lim = maximum(abs.(w.𝐰_surface))
 
@@ -40,6 +50,11 @@ function Plots.heatmap(w::WignerSurface; kwargv...)
     return heatmap(w.x_range, w.p_range, w.𝐰_surface'; merge(default_kwargv, kwargv)...)
 end
 
+"""
+    Plots.contour(w::WignerSurface; kwargv...)
+
+Plot Wigner function in contour.
+"""
 function Plots.contour(w::WignerSurface; kwargv...)
     lim = maximum(abs.(w.𝐰_surface))
 
