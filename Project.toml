@@ -10,12 +10,12 @@ QuantumStateBase = "73ce9c4f-35d1-4161-b9e6-26915895bfed"
 [compat]
 Plots = "1"
 QuantumStateBase = "1.2"
-QuantumStateDistributions = "0.2"
+VisualRegressionTests = "1.2"
 julia = "1.6"
 
 [extras]
+VisualRegressionTests = "34922c18-7c2a-561c-bac1-01e79b2c4c92"
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
-QuantumStateDistributions = "78ba9c6e-4c92-4abc-8d32-e9cb1304b8da"
 
 [targets]
-test = ["Test", "QuantumStateBase", "QuantumStateDistributions"]
+test = ["Test", "VisualRegressionTests"]
