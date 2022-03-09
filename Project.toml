@@ -1,7 +1,7 @@
 name = "QuantumStatePlots"
 uuid = "42a22799-231f-43e2-8d9d-80a724399a88"
 authors = ["JingYu Ning <foldfelis@gmail.com> and contributors"]
-version = "0.1.2"
+version = "0.2.0"
 
 [deps]
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"
